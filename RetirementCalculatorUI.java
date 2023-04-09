@@ -1,0 +1,76 @@
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartPanel;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.data.category.DefaultCategoryDataset;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionListener;
+
+public abstract class RetirementCalculatorUI extends JFrame implements ActionListener {
+    private JLabel nameLabel, scenarioLabel, nestEggLabel, rateOfReturnLabel, salaryLabel, contributionLabel, salaryIncreaseLabel, yearsToRetirementLabel, activeYearsLabel, postActiveYearsLabel;
+    private JTextField nameField, scenarioField, nestEggField, rateOfReturnField, salaryField, contributionField, salaryIncreaseField, yearsToRetirementField, activeYearsField, postActiveYearsField;
+    private JButton calculateButton, compareButton;
+    private JFreeChart chart;
+    private DefaultCategoryDataset dataset;
+
+    public RetirementCalculatorUI() {
+        super("Retirement Calculator");
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLayout(new BorderLayout());
+        JPanel inputPanel = new JPanel(new GridLayout(11, 2));
+        nameLabel = new JLabel("Client Name:");
+        inputPanel.add(nameLabel);
+        nameField = new JTextField();
+        inputPanel.add(nameField);
+        scenarioLabel = new JLabel("Scenario Name:");
+        inputPanel.add(scenarioLabel);
+        scenarioField = new JTextField();
+        inputPanel.add(scenarioField);
+        nestEggLabel = new JLabel("Current Retirement Nest Egg ($):");
+        inputPanel.add(nestEggLabel);
+        nestEggField = new JTextField();
+        inputPanel.add(nestEggField);
+        rateOfReturnLabel = new JLabel("Average Annual Rate of Return (%):");
+        inputPanel.add(rateOfReturnLabel);
+        rateOfReturnField = new JTextField();
+        inputPanel.add(rateOfReturnField);
+        salaryLabel = new JLabel("Current Salary ($):");
+        inputPanel.add(salaryLabel);
+        salaryField = new JTextField();
+        inputPanel.add(salaryField);
+        contributionLabel = new JLabel("Yearly Retirement Contribution ($):");
+        inputPanel.add(contributionLabel);
+        contributionField = new JTextField();
+        inputPanel.add(contributionField);
+        salaryIncreaseLabel = new JLabel("Estimated Yearly Salary Increase (%):");
+        inputPanel.add(salaryIncreaseLabel);
+        salaryIncreaseField = new JTextField();
+        inputPanel.add(salaryIncreaseField);
+        yearsToRetirementLabel = new JLabel("Years to Retirement:");
+        inputPanel.add(yearsToRetirementLabel);
+        yearsToRetirementField = new JTextField();
+        inputPanel.add(yearsToRetirementField);
+        activeYearsLabel = new JLabel("Desired Income at Retirement for Active Years ($):");
+        inputPanel.add(activeYearsLabel);
+        activeYearsField = new JTextField();
+        inputPanel.add(activeYearsField);
+        postActiveYearsLabel = new JLabel("Desired Income at Retirement after Active Years ($):");
+        inputPanel.add(postActiveYearsLabel);
+        postActiveYearsField = new JTextField();
+        inputPanel.add(postActiveYearsField);
+        calculateButton = new JButton("Calculate");
+        inputPanel.add(calculateButton);
+        compareButton = new JButton("Compare");
+        inputPanel.add(compareButton);
+        calculateButton.addActionListener(this);
+        compareButton.addActionListener(this);
+        add(inputPanel, BorderLayout.NORTH);
+        dataset = new DefaultCategoryDataset();
+        chart = ChartFactory.createLineChart("Retirement Savings Over Time", "Year", "Savings ($)", dataset, PlotOrientation.VERTICAL, true, true, false);
+        ChartPanel chartPanel = new ChartPanel(chart);
+        add(chartPanel, BorderLayout.CENTER);
+        pack();
+        setVisible(true);
+    }}
